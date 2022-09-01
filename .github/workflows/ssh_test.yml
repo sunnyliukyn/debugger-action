@@ -1,0 +1,17 @@
+name: Deployment
+
+on:
+workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
+      with:
+        ORIGIN: ${{ secrets.HOST }} # example.com || 8.8.8.8
+        SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }} # ----- BEGIN RSA PRIVATE KEY----- ...
+        NAME: fmstest3
+        PORT: ${{ secrets.PORT }} # 3000
+        USER: ${{ secrets.USER }} # admin
+    - run: ssh fmstest3 ls --help
